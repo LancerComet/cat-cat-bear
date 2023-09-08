@@ -1,7 +1,12 @@
 .idea/
 .vscode/
 *.pth
+
 dataset/
 test/
 validation/
+
 __pycache__
+node_modules/
+
+.env

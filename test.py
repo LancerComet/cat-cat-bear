@@ -2,7 +2,6 @@ import torch
 from torchvision import models
 from PIL import Image
 import os
-from torchvision import models
 
 from common import data_transform, train_dataset, device
 

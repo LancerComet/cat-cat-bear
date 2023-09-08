@@ -1,7 +1,6 @@
 import torch
 from torch.utils.data import DataLoader
-from torchvision import datasets
-from torchvision import models
+from torchvision import datasets, models
 
 from common import data_transform, train_dataset
 

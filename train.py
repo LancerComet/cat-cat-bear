@@ -29,7 +29,7 @@ if __name__ == "__main__":
             outputs = model(inputs)
             loss = criterion(outputs, labels)
             loss.backward()
-            optimizer.step()
+            optimizer.step()-
             print(f"Epoch [{epoch + 1}/{num_epochs}], Step [{i + 1}/{len(train_loader)}], Loss: {loss.item():.4f}")
 
         torch.save(model.state_dict(), "model.pth")

@@ -1,0 +1,38 @@
+<html>
+  <head>
+      <title>Image Upload</title>
+  </head>
+
+  <body>
+    <h1>Meow meow meow meow! This is!! Toyota.</h1>
+    <div>
+      <input type="file" id="file-selector">
+    </div>
+
+    <script>
+      const fileSelector = document.getElementById('file-selector')
+
+      fileSelector.addEventListener('change', async event => {
+        const file = fileSelector.files[0]
+        if (!file) {
+          return
+        }
+
+        const formData = new FormData()
+        formData.append('file', file)
+
+        try {
+          await fetch('/task', {
+            method: 'POST',
+            body: formData
+          })
+          alert('请在企业微信中等待结果')
+        } catch (error) {
+          alert('错误: ' + error.message)
+        }
+
+        fileSelector.value = null
+      })
+    </script>
+  </body>
+</html>
