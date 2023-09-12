@@ -1,36 +1,58 @@
 <html>
   <head>
-      <title>Image Upload</title>
+    <title>Meow meow!</title>
   </head>
 
   <body>
     <h1>Meow meow meow meow! This is!! Toyota.</h1>
     <div>
-      <input type="file" id="file-selector">
+      <label>
+        <span>选择一张🐱🐱图来分析🐱🐱的特征：</span>
+        <br>
+        <input type="file" id="file-selector" style="margin-top: 20px">
+      </label>
+      <div id="progress-bar" style="display: none; margin-top: 20px">
+        <progress></progress>
+      </div>
+      <div style="margin-top: 20px">
+        <img id="preview-img" style="display: none; max-width: 300px; max-height: 500px" />
+      </div>
+      <div id="result-text" style="margin-top: 20px"></div>
     </div>
 
     <script>
       const fileSelector = document.getElementById('file-selector')
+      const resultText = document.getElementById('result-text')
+      const progressBar = document.getElementById('progress-bar')
+      const previewImage = document.getElementById('preview-img')
 
-      fileSelector.addEventListener('change', async event => {
+      fileSelector.addEventListener('change', async () => {
         const file = fileSelector.files[0]
         if (!file) {
           return
         }
 
+        progressBar.style.display = 'block'
+
+        const url = window.URL.createObjectURL(file)
+        previewImage.src = url
+        previewImage.style.display = 'block'
+
         const formData = new FormData()
         formData.append('file', file)
 
         try {
-          await fetch('/task', {
+          const result = await fetch('/recognize', {
             method: 'POST',
             body: formData
-          })
-          alert('请在企业微信中等待结果')
+          }).then(item => item.text())
+          console.log(result)
+          resultText.textContent = '特征 prompt：' + result
         } catch (error) {
-          alert('错误: ' + error.message)
+          resultText.textContent = '错误: ' + error.message
         }
 
+        progressBar.style.display = 'none'
         fileSelector.value = null
       })
     </script>
